@@ -60,13 +60,12 @@ class BitVector {
     return sum;
   }
 
-
   void _initWord(int length) {
     _words = new Int64List(_wordIndex(length - 1) + 1);
   }
 
   /// Tests if the bit at the specified index is set.
-  bool operator [](int bitIndex) {
+  bool has(int bitIndex) {
     if (bitIndex < 0)
       throw new ArgumentError.value(bitIndex, 'bitIndex', 'bitIndex < 0');
 
@@ -74,6 +73,9 @@ class BitVector {
     return (wordIndex < _wordsInUse) &&
         ((_words[wordIndex] & (1 << (bitIndex & _bitMask)) != 0));
   }
+
+  /// Tests if the bit at the specified index is set.
+  bool operator [](int bitIndex) => has(bitIndex);
 
   /// Sets the bit at the specified index to true.
   void set(int bitIndex) {
